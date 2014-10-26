@@ -1,0 +1,75 @@
+package ${params.modelPack};
+
+import java.util.Collection;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.GenericGenerator;
+/**
+ * ${params.modelRemarks}
+ * @author xiaojf 294825811@qq.com
+ */
+@Entity
+@Table(name = "${params.tableName}")
+public class ${params.modelClass} implements java.io.Serializable {
+
+#foreach ($columnInfo in ${params.columnInfos})
+    private $columnInfo.typeNameField $columnInfo.columnNameField ;    //${columnInfo.remarks}
+#end
+
+    public ${params.modelClass}() {
+    }
+
+#foreach ($columnInfo in ${params.columnInfos})
+    #if ($columnInfo.key)
+    
+    @GenericGenerator(name = "generator", strategy = "uuid.hex")
+    @Id
+    @GeneratedValue(generator = "generator")
+    @Column(name = "${columnInfo.columnName}", unique = true, nullable = false, length = $columnInfo.columnSize)
+    public $columnInfo.typeNameField get${columnInfo.columnNameMethodField}() {
+        return this.$columnInfo.columnNameField ;
+    }
+    
+    public void set${columnInfo.columnNameMethodField}($columnInfo.typeNameField $columnInfo.columnNameField) {
+        this.$columnInfo.columnNameField = $columnInfo.columnNameField ;
+    }
+    #elseif (${columnInfo.columnName} == "VERSION" )
+    
+    @Version
+    @Column(name = "VERSION")
+    public Integer getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+    #else
+    
+    /**
+     * get ${columnInfo.remarks}
+     * @return ${columnInfo.remarks}
+     */
+    @Column(name = "$columnInfo.columnName", length = ${columnInfo.columnSize} ,nullable = ${columnInfo.nullable})
+    public $columnInfo.typeNameField get$columnInfo.columnNameMethodField () {
+        return this.$columnInfo.columnNameField ;
+    }
+    
+    /**
+     * set ${columnInfo.remarks}
+     * @param $columnInfo.columnNameField ${columnInfo.remarks}
+     */
+    public void set$columnInfo.columnNameMethodField ($columnInfo.typeNameField $columnInfo.columnNameField) {
+        this.$columnInfo.columnNameField = $columnInfo.columnNameField ;
+    }
+    #end
+#end
+}

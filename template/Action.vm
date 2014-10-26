@@ -1,0 +1,16 @@
+package ${params.actionPack};
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Controller;
+import ${params.servicePack}.${params.modelClass}Service;
+
+/**
+ * ${params.modelRemarks}的控制器
+ * @author xiaojf 294825811@qq.com
+ */
+@Controller
+public class ${params.modelClass}Controller {
+    @Resource(name="${params.modelField}Service")
+    private ${params.modelClass}Service ${params.modelField}Service;    //${params.modelRemarks}业务接口
+    
+}

@@ -1,0 +1,21 @@
+package ${params.serviceImplPack};
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ${params.daoPack}.${params.modelClass}Dao;
+import ${params.modelPack}.${params.modelClass};
+import ${params.servicePack}.${params.modelClass}Service;
+
+/**
+ * ${params.modelRemarks}业务接口实现类
+ * @author xiaojf 294825811@qq.com
+ */
+@Transactional
+@Service(value="${params.modelField}Service")
+public class ${params.modelClass}ServiceImpl implements ${params.modelClass}Service {
+    @Resource(name="${params.modelField}Dao")
+    private ${params.modelClass}Dao ${params.modelField}Dao;    //${params.modelRemarks}数据访问接口
+}
