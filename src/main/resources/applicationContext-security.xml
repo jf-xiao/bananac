@@ -7,6 +7,8 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- resource filter pattern -->
+    <!-- 开发阶段暂时停用权限控制 -->
+    <http pattern="*.*" security="none" />
     <http pattern="/css/**" security="none" />
     <http pattern="/js/**" security="none" />
     <http pattern="/images/**" security="none" />
