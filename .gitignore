@@ -32,3 +32,12 @@ SCCS
 _$*
 
 /target
+
+*/ext
+*/resources
+*/.sencha
+*/build
+*/overrides
+*/packages
+*/sass
+build.xml
