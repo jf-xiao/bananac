@@ -75,9 +75,9 @@
         <param-value>classpath:shiro.ini</param-value>
     </context-param>
     <!-- shiro -->
-    <listener>
+    <!-- <listener>
         <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
-    </listener>
+    </listener> -->
     <!-- spring mvc 配置 -->
     <servlet>
         <servlet-name>springMVC</servlet-name>
