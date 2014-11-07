@@ -28,7 +28,7 @@
     </div>
 
     <div id="rcmenu" class="easyui-menu" style="">
-        <div data-options="iconCls:'icon-cancel'" id="closecur">关闭</div>
+        <div id="closecur">关闭</div>
         <div id="closeall">关闭全部</div>
         <div id="closeother">关闭其他</div>
         <div class="menu-sep"></div>

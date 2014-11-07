@@ -10,7 +10,7 @@
                     }
                     return s;
                 }
-            ">
+                ">
     </ul>
 </div>
 
@@ -27,7 +27,8 @@
     	        		$('#main_content').tabs('add',{
                             title: node.text,
                             content: '<div style="background-color: grey;width: 100%; height:100%;">Content'+node.text+'</div>',
-                            closable: true
+                            closable: true,
+                            border: false
                         });
     	        	}
     	        }
