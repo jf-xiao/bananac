@@ -1,33 +1,5 @@
 /**
- * 验证重复密码
- * @author sean294825811@sina.com
- */
-$.extend($.fn.validatebox.defaults.rules, {   
-    rePassword: {   
-        validator: function(value, param){   
-            return value == $(param[0]).val();   
-        },   
-        message: '密码和重复密码不一致'  
-    }   
-});
-/**
- * 表单序列化, 需要传入一个form的jquery对象
- */
-serializeObject = function(form) {
-	var o = {};
-	$.each(form.serializeArray(), function(index) {
-		if (o[this['name']]) {
-			o[this['name']] = o[this['name']] + "," + this['value'];
-		} else {
-			o[this['name']] = this['value'];
-		}
-	});
-	return o;
-};
-/**
- * 
  * @requires jQuery,EasyUI
- * 
  * 防止panel/window/dialog组件超出浏览器边界
  * @param left
  * @param top
