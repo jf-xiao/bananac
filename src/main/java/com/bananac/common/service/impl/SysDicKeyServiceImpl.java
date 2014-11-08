@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bananac.common.dao.SysDicKeyDao;
+import com.bananac.common.model.SysDicKey;
 import com.bananac.common.service.SysDicKeyService;
 
 /**
@@ -17,4 +18,9 @@ import com.bananac.common.service.SysDicKeyService;
 public class SysDicKeyServiceImpl implements SysDicKeyService {
     @Resource(name="sysDicKeyDao")
     private SysDicKeyDao sysDicKeyDao;    //数据访问接口
+
+    @Override
+    public void add(SysDicKey model) {
+        sysDicKeyDao.add(model);
+    }
 }

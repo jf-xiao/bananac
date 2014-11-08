@@ -38,7 +38,7 @@
         </property>
         <!-- Hibernate 注解扫描路径 -->
         <property name="packagesToScan">
-            <value>com.*.*.domain</value>
+            <value>com.*.*.model</value>
         </property>
         <!-- Hibernate *.hbm.xml 扫描路径路径 -->
         <property name="mappingResources">

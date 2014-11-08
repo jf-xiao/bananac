@@ -28,7 +28,13 @@ public class MySaveOrUpdateInterceptor extends EmptyInterceptor {
             // 逻辑删除
             if ("logDel".equals(propertyNames[i])) {
                 if (state[i] == null || "".equals(state[i])) {
-                    state[i] = "false";
+                    state[i] = 0;
+                }
+            }
+            // 是否可用
+            if ("enabled".equals(propertyNames[i])) {
+                if (state[i] == null || "".equals(state[i])) {
+                    state[i] = 1;
                 }
             }
         }
