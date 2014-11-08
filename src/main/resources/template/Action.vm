@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import ${params.servicePack}.${params.modelClass}Service;
 
 /**
- * ${params.modelRemarks}的控制器
+ * ${params.modelRemarks}  控制器
  * @author xiaojf 294825811@qq.com
  */
 @Controller

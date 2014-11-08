@@ -1,9 +1,9 @@
 package ${params.daoPack};
 
-import com.mousika.common.dao.BaseDao;
+import com.bananac.system.dao.BaseDao;
 import ${params.modelPack}.${params.modelClass};
 /**
- * ${params.modelRemarks}的数据访问接口
+ * ${params.modelRemarks}  数据访问接口
  * @author xiaojf 294825811@qq.com
  */
 public interface ${params.modelClass}Dao extends BaseDao<${params.modelClass}> {

@@ -1,14 +1,10 @@
 package ${params.modelPack};
 
-import java.util.Collection;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "${params.tableName}")
 public class ${params.modelClass} implements java.io.Serializable {
-
+    private static final long serialVersionUID = 1L;
 #foreach ($columnInfo in ${params.columnInfos})
     private $columnInfo.typeNameField $columnInfo.columnNameField ;    //${columnInfo.remarks}
 #end
@@ -58,7 +54,7 @@ public class ${params.modelClass} implements java.io.Serializable {
      * get ${columnInfo.remarks}
      * @return ${columnInfo.remarks}
      */
-    @Column(name = "$columnInfo.columnName", length = ${columnInfo.columnSize} ,nullable = ${columnInfo.nullable})
+    @Column(name = "$columnInfo.columnName", length = ${columnInfo.columnSize})
     public $columnInfo.typeNameField get$columnInfo.columnNameMethodField () {
         return this.$columnInfo.columnNameField ;
     }
