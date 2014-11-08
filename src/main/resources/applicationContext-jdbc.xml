@@ -54,7 +54,7 @@
 
     <!-- hibernate 拦截器 ，自动添加创建时间、修改时间 -->
     <bean id="mySaveOrUpdateInterceptor"
-        class="com.bananac.common.dao.interceptor.MySaveOrUpdateInterceptor"></bean>
+        class="com.bananac.system.dao.interceptor.MySaveOrUpdateInterceptor"></bean>
 
     <!-- 设置druid数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
