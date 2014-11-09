@@ -7,7 +7,7 @@ import com.bananac.system.dao.impl.BaseDaoImpl;
 import ${params.daoPack}.${params.modelClass}Dao;
 import ${params.modelPack}.${params.modelClass};
 /**
- * <${params.modelRemarks}  数据访问接口实现类
+ *  ${params.modelRemarks}  数据访问接口实现类
  * @author xiaojf 294825811@qq.com
  */
 @Repository(value="${params.modelField}Dao")

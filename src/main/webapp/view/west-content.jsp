@@ -28,7 +28,9 @@
                             title: node.text,
                             content: '<div style="background-color: grey;width: 100%; height:100%;">Content'+node.text+'</div>',
                             closable: true,
-                            border: false
+                            border: false,
+                            fit:true,
+                            href:node.attributes.url
                         });
     	        	}
     	        }

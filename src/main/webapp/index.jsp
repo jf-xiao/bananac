@@ -20,10 +20,10 @@
 <jsp:include page="common/init.jsp"></jsp:include>
 </head>
 
-<body class="easyui-layout">
-    <div data-options="region:'north',border:false,href:'view/north-toolbar.jsp'" style="height:50px;"></div>
+<body class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north',border:false,href:'view/north-toolbar.jsp'" style="height:70px;"></div>
     <div data-options="region:'west',title:'导航',border:false,href:'view/west-content.jsp'" style="width: 200px;"></div>
-    <div id="main_content" class="easyui-tabs" data-options="region:'center'" style="height: 100%; width: 100%;">
+    <div id="main_content" class="easyui-tabs" data-options="region:'center',fit:true">
 
     </div>
 
