@@ -11,6 +11,12 @@
 			"attributes":{
 			     "url":"view/system/dictionary.jsp"
 			}
-		}]
+		},{
+            "id":10102,
+            "text":"系统监控",
+            "attributes":{
+                 "url":"view/system/systemInfo.jsp"
+            }
+        }]
 	}]
 }]
