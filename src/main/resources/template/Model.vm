@@ -15,7 +15,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "${params.tableName}")
 public class ${params.modelClass} implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
 #foreach ($columnInfo in ${params.columnInfos})
     private $columnInfo.typeNameField $columnInfo.columnNameField ;    //${columnInfo.remarks}
 #end

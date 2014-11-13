@@ -63,6 +63,12 @@
             <artifactId>druid</artifactId>
             <version>1.0.5</version>
         </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.1</version>
+        </dependency>
         <!-- aspectj -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -151,9 +157,9 @@
         </dependency>
         <!-- velocity -->
         <dependency>
-          <groupId>org.apache.velocity</groupId>
-          <artifactId>velocity</artifactId>
-          <version>1.7</version>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
         </dependency>
         <!-- mysql -->
         <dependency>

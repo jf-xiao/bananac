@@ -123,10 +123,10 @@
 .panel-body {
   background-color: #ffffff;
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
 }
 .panel-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   color: #575765;
   height: 16px;
@@ -335,7 +335,7 @@
   vertical-align: top;
   width: auto;
   line-height: 24px;
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
   margin: 0 4px;
 }
@@ -519,7 +519,7 @@
   border-radius: 5px 5px 5px 5px;
 }
 .textbox .textbox-text {
-  font-size: 12px;
+  font-size: 14px;
   border: 0;
   margin: 0;
   padding: 4px;
@@ -532,7 +532,7 @@
   border-radius: 5px 5px 5px 5px;
 }
 .textbox .textbox-prompt {
-  font-size: 12px;
+  font-size: 14px;
   color: #aaa;
 }
 .textbox-button,
@@ -608,7 +608,7 @@
   vertical-align: middle;
 }
 .combo .combo-text {
-  font-size: 12px;
+  font-size: 14px;
   border: 0px;
   margin: 0;
   padding: 0px 2px;
@@ -659,7 +659,7 @@
 }
 .combobox-item,
 .combobox-group {
-  font-size: 12px;
+  font-size: 14px;
   padding: 3px;
   padding-right: 0px;
 }
@@ -922,7 +922,7 @@
   margin-top: -8px;
 }
 .tabs-title {
-  font-size: 12px;
+  font-size: 14px;
 }
 .tabs-closable {
   padding-right: 8px;
@@ -1227,13 +1227,13 @@
   overflow: hidden;
   height: 18px;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .datagrid-header .datagrid-cell {
   height: auto;
 }
 .datagrid-header .datagrid-cell span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .datagrid-cell-group {
   text-align: center;
@@ -1310,7 +1310,7 @@
   margin: 0;
   padding: 2px 4px;
   border: 1px solid #D3D3D3;
-  font-size: 12px;
+  font-size: 14px;
   outline-style: none;
   -moz-border-radius: 0 0 0 0;
   -webkit-border-radius: 0 0 0 0;
@@ -1462,10 +1462,10 @@
   padding: 0;
   height: 30px;
   line-height: 30px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .pagination span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .pagination-link .l-btn-text {
   width: 24px;
@@ -1503,13 +1503,13 @@
 .calendar table {
   table-layout: fixed;
   border-collapse: separate;
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   height: 100%;
 }
 .calendar table td,
 .calendar table th {
-  font-size: 12px;
+  font-size: 14px;
 }
 .calendar-noborder {
   border: 0;
@@ -1529,7 +1529,7 @@
   padding: 0 3px;
   height: 18px;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   -moz-border-radius: 5px 5px 5px 5px;
   -webkit-border-radius: 5px 5px 5px 5px;
@@ -1597,7 +1597,7 @@
   width: 180px;
   height: 150px;
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   display: none;
   overflow: hidden;
 }
@@ -1613,7 +1613,7 @@
   margin: 0;
   padding: 2px;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
 }
 .calendar-menu-prev,
 .calendar-menu-next {
@@ -1700,7 +1700,7 @@
   text-align: center;
 }
 .datebox-button a {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   text-decoration: none;
   opacity: 0.6;
@@ -1727,15 +1727,6 @@
 .datebox-button a {
   color: #444;
 }
-.numberbox {
-  border: 1px solid #D3D3D3;
-  margin: 0;
-  padding: 0 2px;
-  vertical-align: middle;
-}
-.textbox {
-  padding: 0;
-}
 .spinner {
   display: inline-block;
   white-space: nowrap;
@@ -1747,7 +1738,7 @@
   vertical-align: middle;
 }
 .spinner .spinner-text {
-  font-size: 12px;
+  font-size: 14px;
   border: 0px;
   margin: 0;
   padding: 0 2px;
@@ -1833,7 +1824,7 @@
 }
 .progressbar-text {
   color: #000000;
-  font-size: 12px;
+  font-size: 14px;
 }
 .progressbar-value .progressbar-text {
   background-color: #0092DC;
@@ -1850,14 +1841,14 @@
   vertical-align: middle;
 }
 .searchbox .searchbox-text {
-  font-size: 12px;
+  font-size: 14px;
   border: 0;
   margin: 0;
   padding: 0 2px;
   vertical-align: top;
 }
 .searchbox .searchbox-prompt {
-  font-size: 12px;
+  font-size: 14px;
   color: #ccc;
 }
 .searchbox-button {
@@ -1961,7 +1952,7 @@
   position: absolute;
   display: inline-block;
   line-height: 12px;
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
   top: -22px;
 }
@@ -1984,7 +1975,7 @@
 .slider-rulelabel span {
   position: absolute;
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
 }
 .slider-v .slider-inner {
   width: 6px;
@@ -2093,7 +2084,7 @@
 }
 .menu-text,
 .menu-text span {
-  font-size: 12px;
+  font-size: 14px;
 }
 .menu-shadow {
   position: absolute;
@@ -2377,7 +2368,7 @@
   background: url('images/tree_icons.png') no-repeat -240px -18px;
 }
 .tree-title {
-  font-size: 12px;
+  font-size: 14px;
   display: inline-block;
   text-decoration: none;
   vertical-align: top;
@@ -2387,7 +2378,7 @@
   line-height: 18px;
 }
 .tree-node-proxy {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
   padding: 0 2px 0 20px;
   border-width: 1px;
@@ -2420,7 +2411,7 @@
 }
 .tree-editor {
   border: 1px solid #ccc;
-  font-size: 12px;
+  font-size: 14px;
   height: 14px !important;
   height: 18px;
   line-height: 14px;
@@ -2463,7 +2454,7 @@
   border-radius: 5px 5px 5px 5px;
 }
 .tooltip-content {
-  font-size: 12px;
+  font-size: 14px;
 }
 .tooltip-arrow-outer,
 .tooltip-arrow {

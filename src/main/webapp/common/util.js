@@ -34,20 +34,22 @@ $.fn.dialog.defaults.onMove = easyuiPanelOnMove;
 $.fn.window.defaults.onMove = easyuiPanelOnMove;
 $.fn.panel.defaults.onMove = easyuiPanelOnMove;
 
-//将表单的值序列化成json对象
-$.fn.serializeObject = function()    
-        {    
-           var o = {};    
-           var a = this.serializeArray();    
-           $.each(a, function() {    
-               if (o[this.name]) {    
-                   if (!o[this.name].push) {    
-                       o[this.name] = [o[this.name]];    
-                   }    
-                   o[this.name].push(this.value || '');    
-               } else {    
-                   o[this.name] = this.value || '';    
-               }    
-           });    
-           return o;    
-        };
+/**
+ * 表单序列化, 需要传入一个form的jquery对象，如果表单有填写才收集
+ * 用法：serializeObject($("#dic_search_form"))
+ */
+serializeObject = function(form) {
+    var o = {};
+    $.each(form.serializeArray(), function(index) {
+        if (o[this['name']]) {
+            if(this['value']){//如果表单有填写
+                o[this['name']] = o[this['name']] + "," + this['value'];
+            }
+        } else {
+            if(this['value']){//如果表单有填写
+                o[this['name']] = this['value'];
+            }
+        }
+    });
+    return o;
+};

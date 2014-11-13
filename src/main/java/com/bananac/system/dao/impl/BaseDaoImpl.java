@@ -13,11 +13,14 @@ import javax.persistence.Id;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Example;
 
+import com.bananac.system.bean.Page;
 import com.bananac.system.dao.BaseDao;
 
 /**
  * 公共数据访问接口实现
+ * 
  * @author xiaojf 294825811@qq.com
  * @param <T>
  */
@@ -28,8 +31,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     private Class<T> clazz;
 
     public BaseDaoImpl() {
-        ParameterizedType parameterizedType = (ParameterizedType) this
-                .getClass().getGenericSuperclass();
+        ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
         clazz = (Class<T>) parameterizedType.getActualTypeArguments()[0];
     }
 
@@ -50,17 +52,17 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public void delete(List<String> ids) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "delete from "+clazz.getSimpleName()+" t where t."+this.getPkName()+" in (:ids) ";
+        String hql = "delete from " + clazz.getSimpleName() + " t where t." + this.getPkName() + " in (:ids) ";
         session.createQuery(hql).setParameterList("ids", ids).executeUpdate();
     }
 
     @Override
     public void delete(String id) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "delete from "+clazz.getSimpleName()+" t where t."+this.getPkName()+" = :id ";
+        String hql = "delete from " + clazz.getSimpleName() + " t where t." + this.getPkName() + " = :id ";
         session.createQuery(hql).setParameter("id", id).executeUpdate();
     }
-    
+
     @Override
     public void deleteWithCache(String id) {
         Session session = sessionFactory.getCurrentSession();
@@ -69,7 +71,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public void deleteWithCache(List<String> ids) {
-        for (String id : ids){
+        for (String id : ids) {
             this.delete(id);
         }
     }
@@ -82,8 +84,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public void update(List<T> domains) {
-        for (T domain : domains) {
-            this.update(domain);
+        if (domains != null) {
+            for (T domain : domains) {
+                this.update(domain);
+            }
         }
     }
 
@@ -124,7 +128,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public void execute(String hql) {
         Session session = sessionFactory.getCurrentSession();
-        session.createQuery(hql);
+        session.createQuery(hql).executeUpdate();
     }
 
     @Override
@@ -133,11 +137,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         Query query = session.createQuery(hql);
         if (params != null) {
             for (String key : params.keySet()) {
-                if(params.get(key) instanceof Collection){
-                    query.setParameterList(key, (Collection)params.get(key));
+                if (params.get(key) instanceof Collection) {
+                    query.setParameterList(key, (Collection) params.get(key));
                     continue;
                 }
-                
+
                 query.setParameter(key, params.get(key));
             }
         }
@@ -148,28 +152,25 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public List<T> findByPage(int pageNo, int pageSize) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from " + clazz.getSimpleName();
-        return session.createQuery(hql).setFirstResult((pageSize - 1) * pageNo)
-                .setMaxResults(pageSize).list();
+        return session.createQuery(hql).setFirstResult((pageSize - 1) * pageNo).setMaxResults(pageSize).list();
     }
 
     @Override
-    public List<T> findByPage(int pageNo, int pageSize,
-            Map<String, Object> params) {
+    public List<T> findByPage(int pageNo, int pageSize, Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         String hql = "from " + clazz.getSimpleName();
         Query query = session.createQuery(hql);
         if (params != null) {
             for (String key : params.keySet()) {
-                if(params.get(key) instanceof Collection){
-                    query.setParameterList(key, (Collection)params.get(key));
+                if (params.get(key) instanceof Collection) {
+                    query.setParameterList(key, (Collection) params.get(key));
                     continue;
                 }
-                
+
                 query.setParameter(key, params.get(key));
             }
         }
-        return query.setFirstResult((pageSize - 1) * pageNo)
-                .setMaxResults(pageSize).list();
+        return query.setFirstResult((pageSize - 1) * pageNo).setMaxResults(pageSize).list();
     }
 
     @Override
@@ -178,11 +179,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         Query query = session.createQuery(hql);
         if (params != null) {
             for (String key : params.keySet()) {
-                if(params.get(key) instanceof Collection){
-                    query.setParameterList(key, (Collection)params.get(key));
+                if (params.get(key) instanceof Collection) {
+                    query.setParameterList(key, (Collection) params.get(key));
                     continue;
                 }
-                
+
                 query.setParameter(key, params.get(key));
             }
         }
@@ -192,20 +193,45 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
     /**
      * 获取域对象主键名称
+     * 
      * @return 主键名称
      */
-    private String getPkName(){
+    private String getPkName() {
         String pkName = "";
         Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {  
-            field.isAnnotationPresent(Id.class);  
-            pkName=field.getName();
-            break;  
+        for (Field field : fields) {
+            field.isAnnotationPresent(Id.class);
+            pkName = field.getName();
+            break;
         }
         return pkName;
+    }
+
+    @Override
+    public List<T> findByExample(T domain) {
+        Session session = sessionFactory.getCurrentSession();
+        List<T> list = session.createCriteria(clazz).add(Example.create(domain)).list();
+        return list;
+    }
+
+    @Override
+    public List<T> findByExample(T domain, Page page) {
+        Session session = sessionFactory.getCurrentSession();
+        List<T> list = session.createCriteria(clazz).add(Example.create(domain))
+                .setFirstResult((page.getPage() - 1) * page.getRows()).setMaxResults(page.getRows()).list();
+        return list;
+    }
+
+    public void saveOrUpdate(List<T> domains) {
+        Session session = sessionFactory.getCurrentSession();
+        if (domains != null) {
+            for (T domain : domains) {
+                session.saveOrUpdate(domain);
+            }
+        }
     }
 
 }

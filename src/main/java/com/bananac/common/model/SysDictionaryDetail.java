@@ -15,7 +15,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "sys_dictionary_detail")
 public class SysDictionaryDetail implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
     private java.lang.String id ;    //主键
     private java.lang.String dictionaryId ;    //数据字典主键
     private java.lang.String name ;    //名称

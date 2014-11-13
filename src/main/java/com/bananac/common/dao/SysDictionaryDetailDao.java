@@ -8,4 +8,22 @@ import com.bananac.common.model.SysDictionaryDetail;
  */
 public interface SysDictionaryDetailDao extends BaseDao<SysDictionaryDetail> {
 
+    /**
+     * 根据字典明细的目录主键删除明细记录
+     * @param ids 主键
+     */
+    void deleteByDicIds(String ids);
+
+    /**
+     * 启用
+     * @param ids
+     */
+    void enabled(String ids);
+
+    /**
+     * 停用
+     * @param ids
+     */
+    void disabled(String ids);
+
 }

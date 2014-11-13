@@ -2,6 +2,8 @@ package com.bananac.system.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import com.bananac.system.bean.Page;
 /**
  * 公共数据访问接口
  * @author xiaojf 294825811@qq.com
@@ -124,5 +126,26 @@ public interface BaseDao<T> {
      * @return 惟一值
      */
     public Object unique(String hql ,Map<String, Object> params);
+    
+    /**
+     * 根据实体对象查询, 不支持主键字段, 不支持关联查询
+     * @param domain
+     * @return
+     */
+    public List<T> findByExample(T domain);
+    
+    /**
+     * 根据实体对象查询并分页, 不支持主键字段, 不支持关联查询
+     * @param domain
+     * @return
+     */
+    public List<T> findByExample(T domain,Page page);
+    
+    /**
+     * 保存或修改
+     * @param domains
+     */
+    public void saveOrUpdate(List<T> domains) ;
+    
 
 }
