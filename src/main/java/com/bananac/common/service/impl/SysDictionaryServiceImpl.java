@@ -1,9 +1,7 @@
 package com.bananac.common.service.impl;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -33,7 +31,6 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
 
     @Override
     public Message get(SysDictionary dictionary, Page page) {
-        Map<String, Object> params = new HashMap<String, Object>();
         List<SysDictionary> dictionaries = sysDictionaryDao.findByExample(dictionary, page);
         int count = sysDictionaryDao.findByExample(dictionary).size();
         Message message = new Message();
@@ -56,10 +53,42 @@ public class SysDictionaryServiceImpl implements SysDictionaryService {
 
     @Override
     public Message saveOrUpdate(List<SysDictionary> list) {
+        Message message = new Message();
+        
+        for(SysDictionary dictionary : list){
+            String id = dictionary.getId();
+            //校验新增记录的编码和名称
+            if(id == null || "".equals(id)){
+                //校验编号是否存在
+                if(dictionary.getCode() == null || "".equals(dictionary.getCode())){
+                    message.setSuccess(false);
+                    message.setMessage("编码不能为空");
+                    return message;
+                }
+                int size = sysDictionaryDao.find("from SysDictionary where code = '"+dictionary.getCode()+"'").size();
+                if(size > 0){
+                    message.setSuccess(false);
+                    message.setMessage("编码【"+dictionary.getCode()+"】不能重复");
+                    return message;
+                }
+                //校验名称是否存在
+                if(dictionary.getName() == null || "".equals(dictionary.getName())){
+                    message.setSuccess(false);
+                    message.setMessage("名称不能为空");
+                    return message;
+                }
+                
+                size = sysDictionaryDao.find("from SysDictionary where name = '"+dictionary.getName()+"'").size();
+                if(size > 0){
+                    message.setSuccess(false);
+                    message.setMessage("名称【"+dictionary.getName()+"】不能重复");
+                    return message;
+                }
+            }
+        }
 
         sysDictionaryDao.saveOrUpdate(list);
 
-        Message message = new Message();
         message.setSuccess(true);
         return message;
     }

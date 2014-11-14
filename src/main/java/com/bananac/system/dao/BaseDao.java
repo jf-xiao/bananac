@@ -78,6 +78,13 @@ public interface BaseDao<T> {
     public List<T> find(String hql,Map<String, Object> params);
     
     /**
+     * 查找
+     * @param hql
+     * @return
+     */
+    public List<T> find(String hql);
+    
+    /**
      * 获取
      * @param ids 主键集合
      * @return 对象集合

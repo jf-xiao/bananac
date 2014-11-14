@@ -234,4 +234,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         }
     }
 
+    @Override
+    public List<T> find(String hql) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery(hql).list();
+    }
+
 }

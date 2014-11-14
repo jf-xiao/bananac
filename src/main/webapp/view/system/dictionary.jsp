@@ -27,8 +27,8 @@
                 <thead>
                     <tr>
                     	<th data-options="field:'ck', checkbox:true"></th>
-                        <th data-options="field:'name'" width="80" editor="text">名称</th>
-                        <th data-options="field:'code'" width="100" editor="text">编码</th>
+                        <th data-options="field:'name', sorter:sorter" width="80"  sortable="true" editor="{type:'validatebox',options:{required:true}}">名称</th>
+                        <th data-options="field:'code', sorter:sorter" width="100" sortable="true" editor="{type:'validatebox',options:{required:true}}">编码</th>
                         <th data-options="field:'enabled',formatter:enabledimgbox" width="80">状态</th>
                     </tr>
                 </thead>
@@ -39,8 +39,9 @@
                 <thead>
                     <tr>
                     	<th data-options="field:'ck', checkbox:true"></th>
-                        <th data-options="field:'name'" width="80">名称</th>
-                        <th data-options="field:'code'" width="100">编码</th>
+                    	<th data-options="field:'dictionaryId'" hidden="true" width="80" editor="text"></th>
+                        <th data-options="field:'name',sorter:sorter" width="80" sortable="true" required = "true" editor="{type:'validatebox',options:{required:true}}">名称</th>
+                        <th data-options="field:'code',sorter:sorter" width="100" sortable="true" required = "true" editor="{type:'validatebox',options:{required:true}}">编码</th>
                         <th data-options="field:'enabled',formatter:enabledimgbox" width="80">状态</th>
                     </tr>
                 </thead>
@@ -58,6 +59,7 @@
 	                  <a class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dic_remove();">删除</a>
 	                  <a class="easyui-linkbutton" iconCls="icon-ok" plain="true"  onclick="dic_enabled();">启用</a>
 	                  <a class="easyui-linkbutton" iconCls="icon-no" plain="true"  onclick="dic_disabled();">停用</a>
+	                  <a class="easyui-linkbutton" iconCls="icon-look" plain="true"  onclick="detailHandler();">明细</a>
 	             </tr>
 	             <tr>
 	                 <td>名称</td> 
@@ -83,6 +85,8 @@
 	                  <a class="easyui-linkbutton" iconCls="icon-save" plain="true"  onclick="dic_detail_save();">保存</a>
 	                  <a class="easyui-linkbutton" iconCls="icon-redo" plain="true"  onclick="dic_detail_redo();">撤销</a>
 	                  <a class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dic_detail_remove();">删除</a>
+	                  <a class="easyui-linkbutton" iconCls="icon-ok" plain="true"  onclick="dic_detail_enabled();">启用</a>
+	                  <a class="easyui-linkbutton" iconCls="icon-no" plain="true"  onclick="dic_detail_disabled();">停用</a>
 	             </tr>
 	             <tr>
 	                 <td>名称</td> 
@@ -122,6 +126,7 @@
                 idField:'id',
                 singleSelect:false,
                 fit:true,
+                remoteSort:false,
                 fitColumns:true,
                 pagination:true,
                 rownumbers:true,
@@ -131,14 +136,16 @@
             
             $("#dictionary_detail_dg").datagrid({
                 toolbar: "#dic_detail_search",
+                //url:'sysDictionaryDetail/search.html',
                 border:false,
                 singleSelect:false,
                 fit:true,
+                remoteSort:false,
                 fitColumns:true,
                 pagination:true,
                 idField:'id',
                 rownumbers:true,
-                rownumbers:true,
+                onDblClickRow :onDblClickRow_detail,
                 queryParams : serializeObject($("#dic_detail_search_form"))
             });
             
@@ -171,7 +178,8 @@
             });
                         
             $('#dic_detail_search_btn').click(function(){
-                $('#dictionary_detail_dg').datagrid('load',serializeObject($("#dic_detail_search_form")));
+            	var params = serializeObject($("#dic_detail_search_form"));
+                $('#dictionary_detail_dg').datagrid('load',params);
             });
             
             $('#dic_detail_reset_btn').click(function(){
@@ -207,7 +215,7 @@
         		$.messager.alert('提示','当前未修改任何记录!');
         		return;
         	}
-
+        	
             var inserted = $dg.datagrid('getChanges', "inserted");
             var deleted = $dg.datagrid('getChanges', "deleted");
             var updated = $dg.datagrid('getChanges', "updated");
@@ -224,7 +232,7 @@
 
             $.post("sysDictionary/save.html",effectRow,function(data, textStatus, jqXHR){
 	        		if(data.success == false){
-	        			$.messager.alert('提示','保存失败!');
+	        			$.messager.alert('提示',data.message);
 						return;
 	        		}
 	        		//保存成功后, 刷新当前页
@@ -350,25 +358,260 @@
         	});
         }
 
+
+
+        var editRow_detail = undefined;
+        var dictionaryId = undefined;
+
+        //查看字典明细
+        function detailHandler(){
+
+        	var rows = $('#dictionary_dg').datagrid('getChecked');
+        	if (rows.length != 1) {
+        		$.messager.alert('提示','前选择一条记录查看明细!');
+        		return;
+        	};
+
+        	var row = rows[0];
+
+        	var params = serializeObject($("#dic_detail_search_form"));
+        	params.dictionaryId = row.id;
+        	//更新当前数据字典明细的目录主键
+        	dictionaryId = row.id;
+
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','当前记录为空或未保存!');
+        		return;
+        	}
+        	
+        	$('#dictionary_detail_dg').datagrid({
+        	    url:'sysDictionaryDetail/search.html'
+        	});
+            $('#dictionary_detail_dg').datagrid('load',params);
+
+        	 $("#dictionary_detail_dg").datagrid({
+        	 	title : row.name
+        	 });
+        }
+
         //新增字典明细
         function dic_detail_add(){
-        	window.alert("");
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+        	$('#dictionary_detail_dg').datagrid('insertRow',{
+	    		index : 0,
+	    		row : {
+	    			dictionaryId:dictionaryId
+	    		}
+			});
+
+        	$('#dictionary_detail_dg').datagrid('beginEdit',0);
         }
 
         //保存字典明细
         function dic_detail_save(){
-        	window.alert("");
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+
+        	endEdit_detail();
+        	
+        	var $dg = $('#dictionary_detail_dg');
+        	var rows = $dg.datagrid('getChanges');
+        	if(rows.length <= 0){
+        		$.messager.alert('提示','当前未修改任何记录!');
+        		return;
+        	}
+
+        	//校验行
+        	for (var i = rows.length - 1; i >= 0; i--) {
+        		var row = rows[i];
+        		var result = $dg.datagrid('validateRow', row.index);
+        		if(!result){
+        			$.messager.alert('提示','部分记录校验未通过!');
+        			return;
+        		}
+        	};
+
+            var inserted = $dg.datagrid('getChanges', "inserted");
+            var deleted = $dg.datagrid('getChanges', "deleted");
+            var updated = $dg.datagrid('getChanges', "updated");
+            var effect = new Object();
+            if (inserted.length) {
+                effect["inserted"] = JSON.stringify(inserted);
+            }
+            /*if (deleted.length) {
+                effectRow["deleted"] = JSON.stringify(deleted);
+            }*/
+            if (updated.length) {
+                effect["updated"] = JSON.stringify(updated);
+            }
+
+            $.post("sysDictionaryDetail/save.html",effect,function(data, textStatus, jqXHR){
+	        		if(data.success == false){
+	        			$.messager.alert('提示',data.message);
+						return;
+	        		}
+	        		//保存成功后, 刷新当前页
+        			$('#dictionary_detail_dg').datagrid('load');
+        			$.messager.alert('提示','保存成功!');
+	        	},"json");
+
         }
 
         //撤销字典明细
         function dic_detail_redo(){
-        	window.alert('');
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+
+        	$.messager.confirm('提示','确定撤销?',function(r){
+        		if (r){
+        			$('#dictionary_detail_dg').datagrid('rejectChanges');
+        			editRow_detail = undefined;
+        		};
+        	});
         }
 
         //删除字典明细
         function dic_detail_remove(){
-        	window.alert("");
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+
+        	var rows = $('#dictionary_detail_dg').datagrid('getChecked');
+        	if(rows == undefined || rows.length <= 0){
+        		$.messager.alert('提示','未选择任何记录!');
+        		return;
+        	}
+        	$.messager.confirm('提示','确定删除?',function(r){
+        		if (r){
+        			var ids = new Array();
+		        	for (var i = rows.length - 1; i >= 0; i--) {
+		        		ids.push(rows[i].id);
+		        	}
+
+		        	$.post("sysDictionaryDetail/delete.html",{
+		        		ids : ids.join(',')
+		        	},function(data, textStatus, jqXHR){
+		        		if(data.success == false){
+		        			$.messager.alert('提示','删除失败!');
+							return;
+		        		}
+		        		//删除成功后, 刷新当前页
+	        			$('#dictionary_detail_dg').datagrid('reload');
+	        			$.messager.alert('提示','删除成功!');
+		        	},"json");
+        		};
+        	});
         }
+
+        //双击行触发事件
+        function onDblClickRow_detail(index,row){
+        	if(editRow_detail != undefined){
+        		//与后台交互,执行保存操作
+        		$('#dictionary_detail_dg').datagrid('endEdit',editRow_detail);
+        	}
+        	editRow_detail = index;
+        	$('#dictionary_detail_dg').datagrid('beginEdit',editRow_detail);
+        }
+
+        //启用
+        function dic_detail_enabled(){
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+
+        	var rows = $('#dictionary_detail_dg').datagrid('getChecked');
+        	if(rows == undefined || rows.length <= 0){
+        		$.messager.alert('提示','未选择任何记录!');
+        		return;
+        	}
+        	$.messager.confirm('提示','确定启用?',function(r){
+        		if (r){
+        			var ids = new Array();
+		        	for (var i = rows.length - 1; i >= 0; i--) {
+		        		ids.push(rows[i].id);
+		        	}
+
+		        	$.post("sysDictionaryDetail/enabled.html",{
+		        		ids : ids.join(',')
+		        	},function(data, textStatus, jqXHR){
+		        		if(data.success == false){
+		        			$.messager.alert('提示','启用失败!');
+							return;
+		        		}
+		        		//删除成功后, 刷新当前页
+	        			$('#dictionary_detail_dg').datagrid('reload');
+	        			$.messager.alert('提示','启用成功!');
+		        	},"json");
+        		};
+        	});
+        }
+
+        //停用
+        function dic_detail_disabled(){
+        	if(dictionaryId == undefined){
+        		$.messager.alert('提示','请先选择一条数据字典目录记录!');
+        		return;
+        	}
+
+        	var rows = $('#dictionary_detail_dg').datagrid('getChecked');
+        	if(rows == undefined || rows.length <= 0){
+        		$.messager.alert('提示','未选择任何记录!');
+        		return;
+        	}
+        	$.messager.confirm('提示','确定停用?',function(r){
+        		if (r){
+        			var ids = new Array();
+		        	for (var i = rows.length - 1; i >= 0; i--) {
+		        		ids.push(rows[i].id);
+		        	}
+
+		        	$.post("sysDictionaryDetail/disabled.html",{
+		        		ids : ids.join(',')
+		        	},function(data, textStatus, jqXHR){
+		        		if(data.success == false){
+		        			$.messager.alert('提示','停用失败!');
+							return;
+		        		}
+		        		//删除成功后, 刷新当前页
+	        			$('#dictionary_detail_dg').datagrid('reload');
+	        			$.messager.alert('提示','停用成功!');
+		        	},"json");
+        		};
+        	});
+        }
+
+        //结束编辑
+        function endEdit_detail(){
+            var rows = $('#dictionary_detail_dg').datagrid('getRows');
+            for ( var i = 0; i < rows.length; i++) {
+                $('#dictionary_detail_dg').datagrid('endEdit', i);
+            }
+        }
+
+        //排序
+        function sorter(a1,b1){  
+			var a = a1.split('/');  
+			var b = b1.split('/');  
+			if (a[2] == b[2]){  
+				if (a[0] == b[0]){  
+					return (a[1]>b[1]?1:-1);  
+				} else {  
+					return (a[0]>b[0]?1:-1);  
+				}  
+			} else {  
+				return (a[2]>b[2]?1:-1);  
+			}  
+		}  
+
     </script>
 </body>
 </html>
