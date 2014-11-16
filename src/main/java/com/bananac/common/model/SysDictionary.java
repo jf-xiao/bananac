@@ -9,7 +9,7 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 /**
- * 
+ * 数据字典目录
  * @author xiaojf 294825811@qq.com
  */
 @Entity

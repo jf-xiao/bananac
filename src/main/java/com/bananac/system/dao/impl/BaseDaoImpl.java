@@ -156,24 +156,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public List<T> findByPage(int pageNo, int pageSize, Map<String, Object> params) {
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "from " + clazz.getSimpleName();
-        Query query = session.createQuery(hql);
-        if (params != null) {
-            for (String key : params.keySet()) {
-                if (params.get(key) instanceof Collection) {
-                    query.setParameterList(key, (Collection) params.get(key));
-                    continue;
-                }
-
-                query.setParameter(key, params.get(key));
-            }
-        }
-        return query.setFirstResult((pageSize - 1) * pageNo).setMaxResults(pageSize).list();
-    }
-
-    @Override
     public Object unique(String hql, Map<String, Object> params) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hql);
@@ -238,6 +220,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public List<T> find(String hql) {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery(hql).list();
+    }
+
+    @Override
+    public List<T> findByPage(String hql, Page page, Map<String, Object> params) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        if (params != null) {
+            for (String key : params.keySet()) {
+                if (params.get(key) instanceof Collection) {
+                    query.setParameterList(key, (Collection) params.get(key));
+                    continue;
+                }
+
+                query.setParameter(key, params.get(key));
+            }
+        }
+        return query.setFirstResult((page.getRows() - 1) * page.getPage()).setMaxResults(page.getRows()).list();
     }
 
 }

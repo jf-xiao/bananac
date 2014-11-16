@@ -5,20 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.bananac.system.bean.TreeGrid;
 /**
- * 数据字典明细
+ * 系统模块
  * @author xiaojf 294825811@qq.com
  */
 @Entity
-@Table(name = "sys_dictionary_detail")
-public class SysDictionaryDetail implements java.io.Serializable {
+@Table(name = "sys_modular")
+public class SysModular extends TreeGrid implements java.io.Serializable {
     private java.lang.String id ;    //主键
-    private java.lang.String dictionaryId ;    //数据字典主键
     private java.lang.String name ;    //名称
-    private java.lang.String code ;    //编号
+    private java.lang.String code ;    //编码
+    private java.lang.String url ;    //URL
+    private java.lang.String parentId ;    //上级模块主键
     private java.lang.String creator ;    //创建人
     private java.lang.String updator ;    //修改人
     private java.util.Date createTime ;    //创建时间
@@ -29,8 +33,8 @@ public class SysDictionaryDetail implements java.io.Serializable {
     private java.lang.Integer enabled ;    //是否可用
     private java.lang.Integer sorted ;    //排序
     private java.lang.String remarks ;    //备注
-
-    public SysDictionaryDetail() {
+    
+    public SysModular() {
     }
 
         
@@ -44,23 +48,6 @@ public class SysDictionaryDetail implements java.io.Serializable {
     
     public void setId(java.lang.String id) {
         this.id = id ;
-    }
-            
-    /**
-     * get 数据字典主键
-     * @return 数据字典主键
-     */
-    @Column(name = "DICTIONARY_ID", length = 64)
-    public java.lang.String getDictionaryId () {
-        return this.dictionaryId ;
-    }
-    
-    /**
-     * set 数据字典主键
-     * @param dictionaryId 数据字典主键
-     */
-    public void setDictionaryId (java.lang.String dictionaryId) {
-        this.dictionaryId = dictionaryId ;
     }
             
     /**
@@ -81,8 +68,8 @@ public class SysDictionaryDetail implements java.io.Serializable {
     }
             
     /**
-     * get 编号
-     * @return 编号
+     * get 编码
+     * @return 编码
      */
     @Column(name = "CODE", length = 64)
     public java.lang.String getCode () {
@@ -90,13 +77,48 @@ public class SysDictionaryDetail implements java.io.Serializable {
     }
     
     /**
-     * set 编号
-     * @param code 编号
+     * set 编码
+     * @param code 编码
      */
     public void setCode (java.lang.String code) {
         this.code = code ;
     }
             
+    /**
+     * get URL
+     * @return URL
+     */
+    @Column(name = "URL", length = 254)
+    public java.lang.String getUrl () {
+        return this.url ;
+    }
+    
+    /**
+     * set URL
+     * @param url URL
+     */
+    public void setUrl (java.lang.String url) {
+        this.url = url ;
+    }
+    
+    /**
+     * get 上级模块
+     * @return URL
+     */
+    @Column(name = "PARENT_ID", length = 64)
+    public java.lang.String getParentId() {
+        return parentId;
+    }
+
+    /**
+     * set 上级模块
+     * @param url URL
+     */
+    public void setParentId(java.lang.String parentId) {
+        this.parentId = parentId;
+    }
+
+
     /**
      * get 创建人
      * @return 创建人
@@ -259,4 +281,5 @@ public class SysDictionaryDetail implements java.io.Serializable {
     public void setRemarks (java.lang.String remarks) {
         this.remarks = remarks ;
     }
-    }
+
+}

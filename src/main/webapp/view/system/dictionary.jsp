@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title></title>
+<title>数据字典管理</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">

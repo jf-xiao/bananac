@@ -9,6 +9,7 @@ import ${params.servicePack}.${params.modelClass}Service;
  * @author xiaojf 294825811@qq.com
  */
 @Controller
+@RequestMapping("/${params.modelField}")
 public class ${params.modelClass}Controller {
     @Resource(name="${params.modelField}Service")
     private ${params.modelClass}Service ${params.modelField}Service;    //${params.modelRemarks}业务接口

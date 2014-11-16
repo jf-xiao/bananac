@@ -119,12 +119,12 @@ public interface BaseDao<T> {
     
     /**
      * 分页查询
-     * @param pageNo 页号
-     * @param pageSize 每页大小
-     * @param params 参数
-     * @return 对象集合
+     * @param hql hql查询语句
+     * @param page 分页对象
+     * @param params 查询参数值
+     * @return
      */
-    public List<T> findByPage(int pageNo ,int pageSize, Map<String, Object> params);
+    public List<T> findByPage(String hql ,Page page, Map<String, Object> params);
     
     /**
      * 获取惟一值
