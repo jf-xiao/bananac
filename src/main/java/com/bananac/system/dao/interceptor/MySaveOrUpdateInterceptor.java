@@ -34,7 +34,7 @@ public class MySaveOrUpdateInterceptor extends EmptyInterceptor {
             // 是否可用
             if ("enabled".equals(propertyNames[i])) {
                 if (state[i] == null || "".equals(state[i])) {
-                    state[i] = 1;
+                    state[i] = 0;
                 }
             }
         }

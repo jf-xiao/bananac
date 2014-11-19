@@ -596,22 +596,6 @@
                 $('#dictionary_detail_dg').datagrid('endEdit', i);
             }
         }
-
-        //排序
-        function sorter(a1,b1){  
-			var a = a1.split('/');  
-			var b = b1.split('/');  
-			if (a[2] == b[2]){  
-				if (a[0] == b[0]){  
-					return (a[1]>b[1]?1:-1);  
-				} else {  
-					return (a[0]>b[0]?1:-1);  
-				}  
-			} else {  
-				return (a[2]>b[2]?1:-1);  
-			}  
-		}  
-
     </script>
 </body>
 </html>

@@ -236,7 +236,15 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                 query.setParameter(key, params.get(key));
             }
         }
-        return query.setFirstResult((page.getRows() - 1) * page.getPage()).setMaxResults(page.getRows()).list();
+        return query.setFirstResult((page.getPage() - 1) * page.getRows()).setMaxResults(page.getRows()).list();
+    }
+
+    @Override
+    public void saveOrUpdate(T domain) {
+        Session session = sessionFactory.getCurrentSession();
+        if (domain != null) {
+             session.saveOrUpdate(domain);
+        }
     }
 
 }

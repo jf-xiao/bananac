@@ -32,4 +32,28 @@ public class SysModularController {
         Message message = sysModularService.get(sysModular,page);
         response.getWriter().write(JSON.toJSONString(message));
     }
+    
+    @RequestMapping("/add.html")
+    public void search(SysModular sysModular ,HttpServletRequest request,HttpServletResponse response) throws IOException, IntrospectionException, IllegalAccessException, InvocationTargetException{
+        Message message = sysModularService.save(sysModular);
+        response.getWriter().write(JSON.toJSONString(message));
+    }
+    
+    @RequestMapping("/delete.html")
+    public void delete(String ids ,HttpServletRequest request,HttpServletResponse response) throws IOException{
+        Message message = sysModularService.delete(ids);
+        response.getWriter().write(JSON.toJSONString(message));
+    }
+    
+    @RequestMapping("/enabled.html")
+    public void enabled(String ids ,HttpServletRequest request,HttpServletResponse response) throws IOException{
+        Message message = sysModularService.enabled(ids);
+        response.getWriter().write(JSON.toJSONString(message));
+    }
+    
+    @RequestMapping("/disabled.html")
+    public void disabled(String ids ,HttpServletRequest request,HttpServletResponse response) throws IOException{
+        Message message = sysModularService.disabled(ids);
+        response.getWriter().write(JSON.toJSONString(message));
+    }
 }

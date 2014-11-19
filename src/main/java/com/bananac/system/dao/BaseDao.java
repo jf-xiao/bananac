@@ -154,5 +154,10 @@ public interface BaseDao<T> {
      */
     public void saveOrUpdate(List<T> domains) ;
     
+    /**
+     * 保存或修改
+     * @param domain
+     */
+    public void saveOrUpdate(T domain) ;
 
 }

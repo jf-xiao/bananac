@@ -24,4 +24,32 @@ public interface SysModularService {
      */
     Message get(SysModular sysModular, Page page) throws IntrospectionException, IllegalAccessException, InvocationTargetException;
 
+    /**
+     * 保存
+     * @param sysModular
+     * @return
+     */
+    Message save(SysModular sysModular);
+    
+    /**
+     * 删除
+     * @param ids
+     * @return
+     */
+    Message delete(String ids);
+    
+    /**
+     * 启用
+     * @param ids
+     * @return
+     */
+    Message enabled(String ids);
+
+    /**
+     * 停用
+     * @param ids
+     * @return
+     */
+    Message disabled(String ids);
+
 }
